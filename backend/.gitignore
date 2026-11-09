@@ -1,0 +1,12 @@
+.env
+venv/
+__pycache__/
+*.pyc
+instance/
+.pytest_cache/
+test_*.py
+create_test_user.py
+quick_login.py
+reset_and_test.py
+downloaded_test.txt
+python
