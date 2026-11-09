@@ -1,341 +1,1150 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TrustVault | Secure Document Sharing</title>
+
+<title>⬡ VaultNexa | Secure Document Sharing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f5fa;color:#202b43}
-button,input,select{font:inherit}
-button{cursor:pointer;border:0;border-radius:8px;padding:11px 16px;background:#315bea;color:white}
-button:hover{opacity:.88}
-input,select{padding:12px;border:1px solid #dce1eb;border-radius:8px;width:100%;margin:7px 0}
-.hidden{display:none!important}
-.auth{max-width:410px;margin:8vh auto;background:white;padding:30px;border-radius:15px;box-shadow:0 8px 35px #17264b18}
-.auth h1{color:#315bea;text-align:center}
-.muted{color:#78839a;font-size:14px}
-#app{display:none;min-height:100vh}
-header{background:#17264b;color:white;padding:17px 5%;display:flex;justify-content:space-between;align-items:center}
-header button{background:#e9edff;color:#17264b}
-.layout{display:flex;max-width:1250px;margin:25px auto;padding:0 18px;gap:22px}
-.sidebar{width:210px;background:white;padding:20px;border-radius:12px;height:max-content}
-.sidebar button{width:100%;margin:5px 0;text-align:left;background:#f1f4fb;color:#26375b}
-main{flex:1;min-width:0}
-.card{background:white;padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 3px 15px #17264b08}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.stat strong{font-size:27px;color:#315bea;display:block;margin-top:8px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.actions button{font-size:12px;padding:8px}
-.secondary{background:#e9edff;color:#26375b}
-.danger{background:#d83d50}
-table{width:100%;border-collapse:collapse}
-th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #edf0f5;font-size:13px}
-.table-wrap{overflow-x:auto}
-#message{padding:12px;border-radius:8px;margin-bottom:15px;display:none}
-.success{background:#e5f8ed;color:#16743d}
-.error{background:#ffe8e8;color:#a52323}
-@media(max-width:700px){
-.layout{display:block}
-.sidebar{width:100%;display:flex;flex-wrap:wrap;margin-bottom:18px}
-.sidebar button{width:auto}
-.stats{grid-template-columns:1fr}
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --navy: #101827;
+    --navy-light: #17264b;
+    --blue: #315bea;
+    --cyan: #38bdf8;
+    --purple: #a78bfa;
+    --background: #f3f5fa;
+    --white: #ffffff;
+    --text: #202b43;
+    --muted: #78839a;
+    --border: #e2e8f0;
+    --green: #16a34a;
+    --red: #dc3545;
+}
+
+body {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 9px;
+    padding: 11px 17px;
+    background: var(--blue);
+    color: white;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+input, select {
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    width: 100%;
+    margin: 7px 0;
+    outline: none;
+    background: #fbfcff;
+    color: var(--text);
+}
+
+input:focus, select:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px #38bdf820;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* BRAND LOGO */
+
+.brand {
+    font-size: 29px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.brand-symbol {
+    color: var(--cyan);
+}
+
+.brand-vault {
+    color: #ffffff;
+}
+
+.brand-nexa {
+    color: var(--purple);
+}
+
+/* LOGIN AND REGISTER */
+
+#auth {
+    max-width: 420px;
+    margin: 8vh auto;
+    background: white;
+    padding: 32px;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px #17264b15;
+    border: 1px solid #e9edf5;
+}
+
+.auth h1 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 5px;
+}
+
+.auth h1 .brand-symbol {
+    color: var(--cyan);
+}
+
+.auth h1 .brand-vault {
+    color: var(--navy);
+}
+
+.auth h1 .brand-nexa {
+    color: #8b5cf6;
+}
+
+.auth h2 {
+    margin-top: 28px;
+    font-size: 23px;
+}
+
+.auth button {
+    margin-top: 12px;
+    background: linear-gradient(110deg, #315bea, #6656d9);
+    padding: 13px;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.auth .muted {
+    text-align: center;
+}
+
+a {
+    color: #635bdb;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* APPLICATION */
+
+#app {
+    display: none;
+    min-height: 100vh;
+}
+
+/* HEADER */
+
+header {
+    background: var(--navy);
+    color: white;
+    padding: 17px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px #10182725;
+}
+
+header small {
+    color: #aebbd2;
+    font-size: 12px;
+}
+
+header button {
+    background: #26385b;
+    color: white;
+    border: 1px solid #405477;
+}
+
+header button:hover {
+    background: #344a73;
+}
+
+/* DASHBOARD LAYOUT */
+
+.layout {
+    display: flex;
+    max-width: 1300px;
+    margin: 28px auto;
+    padding: 0 20px;
+    gap: 24px;
+}
+
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    height: max-content;
+    box-shadow: 0 4px 18px #17264b08;
+}
+
+.sidebar button {
+    width: 100%;
+    margin: 6px 0;
+    text-align: left;
+    background: #f2f5fb;
+    color: #26375b;
+    font-weight: 600;
+}
+
+.sidebar button:hover {
+    background: #e5edff;
+    color: var(--blue);
+}
+
+main {
+    flex: 1;
+    min-width: 0;
+}
+
+main h2 {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+/* CARDS */
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    margin-bottom: 19px;
+    box-shadow: 0 4px 18px #17264b08;
+    border: 1px solid #edf0f6;
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 19px;
+}
+
+/* STATISTICS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.stat {
+    font-size: 14px;
+    color: var(--muted);
+    border-top: 3px solid var(--cyan);
+}
+
+.stat:nth-child(2) {
+    border-top-color: var(--purple);
+}
+
+.stat:nth-child(3) {
+    border-top-color: var(--blue);
+}
+
+.stat strong {
+    font-size: 29px;
+    color: var(--navy);
+    display: block;
+    margin-top: 10px;
+}
+
+/* ACTION BUTTONS */
+
+.actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.actions button {
+    font-size: 12px;
+    padding: 8px 12px;
+}
+
+.secondary {
+    background: #e9edff;
+    color: #26375b;
+}
+
+.secondary:hover {
+    background: #dce5ff;
+}
+
+.danger {
+    background: var(--red);
+}
+
+/* DOCUMENT TABLE */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 13px 9px;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+}
+
+th {
+    color: #52617c;
+    background: #f7f9fd;
+    font-weight: 700;
+}
+
+td {
+    color: #34415a;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+/* MESSAGE */
+
+#message {
+    padding: 13px;
+    border-radius: 9px;
+    margin-bottom: 15px;
+    display: none;
+    font-size: 14px;
+}
+
+.success {
+    background: #e5f8ed;
+    color: #16743d;
+}
+
+.error {
+    background: #ffe8e8;
+    color: #a52323;
+}
+
+/* UPLOAD BUTTON */
+
+#uploadCard > button {
+    background: linear-gradient(110deg, #315bea, #6656d9);
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width: 700px) {
+
+    #auth {
+        margin: 5vh 15px;
+        padding: 25px;
+    }
+
+    header {
+        padding: 15px;
+        flex-wrap: wrap;
+    }
+
+    header .brand {
+        font-size: 23px;
+    }
+
+    .layout {
+        display: block;
+        margin-top: 18px;
+        padding: 0 13px;
+    }
+
+    .sidebar {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 12px;
+        margin-bottom: 18px;
+    }
+
+    .sidebar button {
+        width: auto;
+        flex: 1;
+        text-align: center;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    main h2 {
+        font-size: 22px;
+    }
 }
 </style>
 </head>
+
 <body>
 
+<!-- LOGIN AND REGISTER SECTION -->
+
 <section id="auth" class="auth">
-<h1>🔐 TrustVault</h1>
-<p class="muted" style="text-align:center">Secure Document Sharing Platform</p>
 
-<div id="loginForm">
-<h2>Welcome Back</h2>
-<input id="loginEmail" type="email" placeholder="Email address">
-<input id="loginPassword" type="password" placeholder="Password">
-<button style="width:100%" onclick="login()">Login</button>
-<p class="muted">New user? <a href="#" onclick="showRegister()">Create account</a></p>
-</div>
+    <h1>
+        <span class="brand-symbol">⬡</span>
+        <span class="brand-vault">Vault</span><span class="brand-nexa">Nexa</span>
+    </h1>
 
-<div id="registerForm" class="hidden">
-<h2>Create Account</h2>
-<input id="regName" placeholder="Full name">
-<input id="regEmail" type="email" placeholder="Email address">
-<input id="regPassword" type="password" placeholder="Password (minimum 12 characters)">
-<button style="width:100%" onclick="register()">Register</button>
-<p class="muted">Already registered? <a href="#" onclick="showLogin()">Login</a></p>
-</div>
+    <p class="muted">Secure Document Sharing Platform</p>
+
+    <div id="loginForm">
+
+        <h2>Welcome Back</h2>
+
+        <input id="loginEmail" type="email" placeholder="Email address">
+
+        <input id="loginPassword" type="password" placeholder="Password">
+
+        <button style="width:100%" onclick="login()">Login</button>
+
+        <p class="muted">
+            New user?
+            <a href="#" onclick="showRegister()">Create account</a>
+        </p>
+
+    </div>
+
+    <div id="registerForm" class="hidden">
+
+        <h2>Create Account</h2>
+
+        <input id="regName" placeholder="Full name">
+
+        <input id="regEmail" type="email" placeholder="Email address">
+
+        <input id="regPassword" type="password" placeholder="Password (minimum 12 characters)">
+
+        <button style="width:100%" onclick="register()">Register</button>
+
+        <p class="muted">
+            Already registered?
+            <a href="#" onclick="showLogin()">Login</a>
+        </p>
+
+    </div>
+
 </section>
 
+
+<!-- MAIN APPLICATION -->
+
 <div id="app">
-<header>
-<div><strong>🔐 TrustVault</strong><br><small>Secure Document Sharing</small></div>
-<div><span id="userName"></span> &nbsp; <button onclick="logout()">Logout</button></div>
-</header>
 
-<div class="layout">
-<aside class="sidebar">
-<button onclick="loadDocuments()">▦ Dashboard</button>
-<button onclick="document.getElementById('uploadCard').scrollIntoView()">⬆ Upload</button>
-<button onclick="loadDocuments()">▤ Documents</button>
-</aside>
+    <!-- HEADER -->
 
-<main>
-<div id="message"></div>
-<h2>Dashboard</h2>
-<p class="muted">Manage your secure documents in one place.</p>
+    <header>
 
-<div class="stats">
-<div class="card stat">Total Documents<strong id="total">0</strong></div>
-<div class="card stat">Categories<strong id="categories">0</strong></div>
-<div class="card stat">Account Role<strong id="role">-</strong></div>
+        <div>
+            <div class="brand">
+                <span class="brand-symbol">⬡</span>
+                <span class="brand-vault">Vault</span><span class="brand-nexa">Nexa</span>
+            </div>
+
+            <small>Secure Document Sharing</small>
+        </div>
+
+        <div>
+            <span id="userName"></span>
+            &nbsp;
+            <button onclick="logout()">Logout</button>
+        </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <button onclick="loadDocuments()">▦ Dashboard</button>
+
+            <button onclick="document.getElementById('uploadCard').scrollIntoView({behavior:'smooth'})">⬆ Upload</button>
+
+            <button onclick="loadDocuments()">▤ Documents</button>
+
+        </aside>
+
+
+        <main>
+
+            <div id="message"></div>
+
+            <h2>Dashboard</h2>
+
+            <p class="muted">
+                Manage your secure documents in one place.
+            </p>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats">
+
+                <div class="card stat">
+                    Total Documents
+                    <strong id="total">0</strong>
+                </div>
+
+                <div class="card stat">
+                    Categories
+                    <strong id="categories">0</strong>
+                </div>
+
+                <div class="card stat">
+                    Account Role
+                    <strong id="role">-</strong>
+                </div>
+
+            </div>
+
+
+            <!-- UPLOAD DOCUMENT -->
+
+            <div class="card" id="uploadCard">
+
+                <h3>Upload New Document</h3>
+
+                <input id="docTitle" placeholder="Document title">
+
+                <input id="docCategory" placeholder="Category (e.g. Personal, Work)">
+
+                <input id="docFile" type="file">
+
+                <button onclick="uploadDocument()">Upload Document</button>
+
+                <p class="muted">
+                    Maximum file size: 16 MB. Allowed file types depend on backend validation.
+                </p>
+
+            </div>
+
+
+            <!-- DOCUMENT LIST -->
+
+            <div class="card">
+
+                <h3>My Documents</h3>
+
+                <input
+                    id="search"
+                    placeholder="Search by title, filename or category..."
+                    oninput="searchDocuments()"
+                >
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Document</th>
+                                <th>Category</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="documentRows">
+
+                            <tr>
+                                <td colspan="3">Loading...</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
 </div>
 
-<div class="card" id="uploadCard">
-<h3>Upload New Document</h3>
-<input id="docTitle" placeholder="Document title">
-<input id="docCategory" placeholder="Category (e.g. Personal, Work)">
-<input id="docFile" type="file">
-<button onclick="uploadDocument()">Upload Document</button>
-<p class="muted">Maximum file size: 16 MB. Allowed file types depend on backend validation.</p>
-</div>
-
-<div class="card">
-<h3>My Documents</h3>
-<input id="search" placeholder="Search by title, filename or category..." oninput="searchDocuments()">
-<div class="table-wrap">
-<table>
-<thead><tr><th>Document</th><th>Category</th><th>Actions</th></tr></thead>
-<tbody id="documentRows">
-<tr><td colspan="3">Loading...</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</main>
-</div>
-</div>
 
 <script>
+
 let currentUser = null;
 let documents = [];
 let searchTimer = null;
 
-function showMessage(message, type="success") {
- const box=document.getElementById("message");
- box.textContent=message;
- box.className=type;
- box.style.display="block";
- window.scrollTo(0,0);
+
+// MESSAGE FUNCTION
+
+function showMessage(message, type = "success") {
+
+    const box = document.getElementById("message");
+
+    box.textContent = message;
+    box.className = type;
+    box.style.display = "block";
+
+    window.scrollTo(0, 0);
+
 }
 
-async function api(url, options={}) {
- const response=await fetch(url,{
-  credentials:"same-origin",
-  ...options,
-  headers:{
-   ...(options.body instanceof FormData ? {} : {"Content-Type":"application/json"}),
-   ...(options.headers || {})
-  }
- });
- const data=await response.json().catch(()=>({error:"Unexpected server response"}));
- if(!response.ok) throw new Error(data.error || "Request failed");
- return data;
+
+// API FUNCTION
+
+async function api(url, options = {}) {
+
+    const response = await fetch(url, {
+
+        credentials: "same-origin",
+
+        ...options,
+
+        headers: {
+
+            ...(options.body instanceof FormData ? {} : {
+                "Content-Type": "application/json"
+            }),
+
+            ...(options.headers || {})
+
+        }
+
+    });
+
+    const data = await response.json().catch(() => ({
+        error: "Unexpected server response"
+    }));
+
+    if (!response.ok) {
+        throw new Error(data.error || "Request failed");
+    }
+
+    return data;
+
 }
 
-function showRegister(){
- document.getElementById("loginForm").classList.add("hidden");
- document.getElementById("registerForm").classList.remove("hidden");
-}
-function showLogin(){
- document.getElementById("registerForm").classList.add("hidden");
- document.getElementById("loginForm").classList.remove("hidden");
-}
 
-async function register(){
- try{
-  const data=await api("/register",{method:"POST",body:JSON.stringify({
-   name:document.getElementById("regName").value,
-   email:document.getElementById("regEmail").value,
-   password:document.getElementById("regPassword").value
-  })});
-  alert(data.message+" Please log in.");
-  showLogin();
- }catch(e){alert(e.message)}
+// SHOW REGISTER
+
+function showRegister() {
+
+    document.getElementById("loginForm").classList.add("hidden");
+
+    document.getElementById("registerForm").classList.remove("hidden");
+
 }
 
-async function login(){
- try{
-  const data=await api("/login",{method:"POST",body:JSON.stringify({
-   email:document.getElementById("loginEmail").value,
-   password:document.getElementById("loginPassword").value
-  })});
-  currentUser=data.user;
-  openDashboard();
- }catch(e){alert(e.message)}
+
+// SHOW LOGIN
+
+function showLogin() {
+
+    document.getElementById("registerForm").classList.add("hidden");
+
+    document.getElementById("loginForm").classList.remove("hidden");
+
 }
 
-function openDashboard(){
- document.getElementById("auth").style.display="none";
- document.getElementById("app").style.display="block";
- document.getElementById("userName").textContent=currentUser.name;
- document.getElementById("role").textContent=currentUser.role;
- loadDocuments();
+
+// REGISTER
+
+async function register() {
+
+    try {
+
+        const data = await api("/register", {
+
+            method: "POST",
+
+            body: JSON.stringify({
+
+                name: document.getElementById("regName").value,
+
+                email: document.getElementById("regEmail").value,
+
+                password: document.getElementById("regPassword").value
+
+            })
+
+        });
+
+        alert(data.message + " Please log in.");
+
+        showLogin();
+
+    } catch (e) {
+
+        alert(e.message);
+
+    }
+
 }
 
-async function checkSession(){
- try{
-  const data=await api("/dashboard");
-  currentUser=data.user;
-  openDashboard();
- }catch(e){
-  document.getElementById("auth").style.display="block";
- }
+
+// LOGIN
+
+async function login() {
+
+    try {
+
+        const data = await api("/login", {
+
+            method: "POST",
+
+            body: JSON.stringify({
+
+                email: document.getElementById("loginEmail").value,
+
+                password: document.getElementById("loginPassword").value
+
+            })
+
+        });
+
+        currentUser = data.user;
+
+        openDashboard();
+
+    } catch (e) {
+
+        alert(e.message);
+
+    }
+
 }
 
-async function logout(){
- try{
-  await api("/logout",{method:"POST"});
-  currentUser=null;
-  document.getElementById("app").style.display="none";
-  document.getElementById("auth").style.display="block";
-  showLogin();
- }catch(e){alert(e.message)}
+
+// OPEN DASHBOARD
+
+function openDashboard() {
+
+    document.getElementById("auth").style.display = "none";
+
+    document.getElementById("app").style.display = "block";
+
+    document.getElementById("userName").textContent = currentUser.name;
+
+    document.getElementById("role").textContent = currentUser.role;
+
+    loadDocuments();
+
 }
 
-async function loadDocuments(query=""){
- try{
-  const data=await api("/documents?q="+encodeURIComponent(query));
-  documents=data.documents || [];
-  document.getElementById("total").textContent=documents.length;
-  document.getElementById("categories").textContent=
-   new Set(documents.map(d=>d.category).filter(Boolean)).size;
-  renderDocuments();
- }catch(e){showMessage(e.message,"error")}
+
+// CHECK SESSION
+
+async function checkSession() {
+
+    try {
+
+        const data = await api("/dashboard");
+
+        currentUser = data.user;
+
+        openDashboard();
+
+    } catch (e) {
+
+        document.getElementById("auth").style.display = "block";
+
+    }
+
 }
 
-function searchDocuments(){
- clearTimeout(searchTimer);
- searchTimer=setTimeout(()=>{
-  loadDocuments(document.getElementById("search").value);
- },300);
+
+// LOGOUT
+
+async function logout() {
+
+    try {
+
+        await api("/logout", {
+            method: "POST"
+        });
+
+        currentUser = null;
+
+        document.getElementById("app").style.display = "none";
+
+        document.getElementById("auth").style.display = "block";
+
+        showLogin();
+
+    } catch (e) {
+
+        alert(e.message);
+
+    }
+
 }
 
-function renderDocuments(){
- const body=document.getElementById("documentRows");
- if(!documents.length){
-  body.innerHTML='<tr><td colspan="3">No documents found.</td></tr>';
-  return;
- }
- body.innerHTML="";
- documents.forEach(doc=>{
-  const row=document.createElement("tr");
-  const name=document.createElement("td");
-  const category=document.createElement("td");
-  const actions=document.createElement("td");
-  const controls=document.createElement("div");
-  controls.className="actions";
-  name.textContent=doc.title+" ("+doc.filename+")";
-  category.textContent=doc.category || "-";
 
-  function addButton(label,cls,fn){
-   const b=document.createElement("button");
-   b.textContent=label;
-   b.className=cls;
-   b.onclick=fn;
-   controls.appendChild(b);
-  }
+// LOAD DOCUMENTS
 
-  addButton("Download","",()=>downloadDocument(doc.id));
-  addButton("Edit","secondary",()=>editDocument(doc));
-  if(currentUser.role==="admin" || doc.owner_id===currentUser.id){
-   addButton("Share","secondary",()=>shareDocument(doc.id));
-   addButton("Delete","danger",()=>deleteDocument(doc.id));
-  }
-  actions.appendChild(controls);
-  row.append(name,category,actions);
-  body.appendChild(row);
- });
+async function loadDocuments(query = "") {
+
+    try {
+
+        const data = await api("/documents?q=" + encodeURIComponent(query));
+
+        documents = data.documents || [];
+
+        document.getElementById("total").textContent = documents.length;
+
+        document.getElementById("categories").textContent =
+            new Set(documents.map(d => d.category).filter(Boolean)).size;
+
+        renderDocuments();
+
+    } catch (e) {
+
+        showMessage(e.message, "error");
+
+    }
+
 }
 
-async function uploadDocument(){
- const file=document.getElementById("docFile").files[0];
- const title=document.getElementById("docTitle").value.trim();
- if(!file || !title){alert("Enter a title and select a file.");return}
- const form=new FormData();
- form.append("file",file);
- form.append("title",title);
- form.append("category",document.getElementById("docCategory").value);
- try{
-  const data=await api("/documents/upload",{method:"POST",body:form});
-  showMessage(data.message);
-  document.getElementById("docTitle").value="";
-  document.getElementById("docCategory").value="";
-  document.getElementById("docFile").value="";
-  loadDocuments();
- }catch(e){showMessage(e.message,"error")}
+
+// SEARCH DOCUMENTS
+
+function searchDocuments() {
+
+    clearTimeout(searchTimer);
+
+    searchTimer = setTimeout(() => {
+
+        loadDocuments(document.getElementById("search").value);
+
+    }, 300);
+
 }
 
-async function downloadDocument(id){
- try{
-  const response=await fetch("/documents/"+id+"/download",{credentials:"same-origin"});
-  if(!response.ok){
-   const data=await response.json().catch(()=>({}));
-   throw new Error(data.error || "Download failed");
-  }
-  const blob=await response.blob();
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;
-  a.download="document";
-  a.click();
-  URL.revokeObjectURL(url);
- }catch(e){showMessage(e.message,"error")}
+
+// RENDER DOCUMENTS
+
+function renderDocuments() {
+
+    const body = document.getElementById("documentRows");
+
+    if (!documents.length) {
+
+        body.innerHTML = '<tr><td colspan="3">No documents found.</td></tr>';
+
+        return;
+
+    }
+
+    body.innerHTML = "";
+
+    documents.forEach(doc => {
+
+        const row = document.createElement("tr");
+
+        const name = document.createElement("td");
+
+        const category = document.createElement("td");
+
+        const actions = document.createElement("td");
+
+        const controls = document.createElement("div");
+
+        controls.className = "actions";
+
+        name.textContent = doc.title + " (" + doc.filename + ")";
+
+        category.textContent = doc.category || "-";
+
+
+        function addButton(label, cls, fn) {
+
+            const b = document.createElement("button");
+
+            b.textContent = label;
+
+            b.className = cls;
+
+            b.onclick = fn;
+
+            controls.appendChild(b);
+
+        }
+
+
+        addButton("Download", "", () => downloadDocument(doc.id));
+
+        addButton("Edit", "secondary", () => editDocument(doc));
+
+        if (currentUser.role === "admin" || doc.owner_id === currentUser.id) {
+
+            addButton("Share", "secondary", () => shareDocument(doc.id));
+
+            addButton("Delete", "danger", () => deleteDocument(doc.id));
+
+        }
+
+        actions.appendChild(controls);
+
+        row.append(name, category, actions);
+
+        body.appendChild(row);
+
+    });
+
 }
 
-async function editDocument(doc){
- const title=prompt("Enter new document title:",doc.title);
- if(title===null)return;
- const category=prompt("Enter category:",doc.category || "");
- if(category===null)return;
- try{
-  const data=await api("/documents/"+doc.id,{
-   method:"PATCH",
-   body:JSON.stringify({title,category})
-  });
-  showMessage(data.message);
-  loadDocuments();
- }catch(e){showMessage(e.message,"error")}
+
+// UPLOAD DOCUMENT
+
+async function uploadDocument() {
+
+    const file = document.getElementById("docFile").files[0];
+
+    const title = document.getElementById("docTitle").value.trim();
+
+    if (!file || !title) {
+
+        alert("Enter a title and select a file.");
+
+        return;
+
+    }
+
+    const form = new FormData();
+
+    form.append("file", file);
+
+    form.append("title", title);
+
+    form.append("category", document.getElementById("docCategory").value);
+
+    try {
+
+        const data = await api("/documents/upload", {
+
+            method: "POST",
+
+            body: form
+
+        });
+
+        showMessage(data.message);
+
+        document.getElementById("docTitle").value = "";
+
+        document.getElementById("docCategory").value = "";
+
+        document.getElementById("docFile").value = "";
+
+        loadDocuments();
+
+    } catch (e) {
+
+        showMessage(e.message, "error");
+
+    }
+
 }
 
-async function deleteDocument(id){
- if(!confirm("Are you sure you want to delete this document?"))return;
- try{
-  const data=await api("/documents/"+id,{method:"DELETE"});
-  showMessage(data.message);
-  loadDocuments();
- }catch(e){showMessage(e.message,"error")}
+
+// DOWNLOAD DOCUMENT
+
+async function downloadDocument(id) {
+
+    try {
+
+        const response = await fetch(
+            "/documents/" + id + "/download",
+            { credentials: "same-origin" }
+        );
+
+        if (!response.ok) {
+
+            const data = await response.json().catch(() => ({}));
+
+            throw new Error(data.error || "Download failed");
+
+        }
+
+        const blob = await response.blob();
+
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+
+        a.href = url;
+
+        a.download = "document";
+
+        a.click();
+
+        URL.revokeObjectURL(url);
+
+    } catch (e) {
+
+        showMessage(e.message, "error");
+
+    }
+
 }
 
-async function shareDocument(id){
- const email=prompt("Enter the registered user's email:");
- if(!email)return;
- const permission=prompt("Enter permission: read or edit","read");
- if(!["read","edit"].includes((permission || "").toLowerCase())){
-  alert("Permission must be read or edit.");
-  return;
- }
- try{
-  const data=await api("/documents/"+id+"/permissions",{
-   method:"POST",
-   body:JSON.stringify({email,permission:permission.toLowerCase()})
-  });
-  showMessage(data.message);
- }catch(e){showMessage(e.message,"error")}
+
+// EDIT DOCUMENT
+
+async function editDocument(doc) {
+
+    const title = prompt("Enter new document title:", doc.title);
+
+    if (title === null) return;
+
+    const category = prompt("Enter category:", doc.category || "");
+
+    if (category === null) return;
+
+    try {
+
+        const data = await api("/documents/" + doc.id, {
+
+            method: "PATCH",
+
+            body: JSON.stringify({
+                title,
+                category
+            })
+
+        });
+
+        showMessage(data.message);
+
+        loadDocuments();
+
+    } catch (e) {
+
+        showMessage(e.message, "error");
+
+    }
+
 }
+
+
+// DELETE DOCUMENT
+
+async function deleteDocument(id) {
+
+    if (!confirm("Are you sure you want to delete this document?")) return;
+
+    try {
+
+        const data = await api("/documents/" + id, {
+            method: "DELETE"
+        });
+
+        showMessage(data.message);
+
+        loadDocuments();
+
+    } catch (e) {
+
+        showMessage(e.message, "error");
+
+    }
+
+}
+
+
+// SHARE DOCUMENT
+
+async function shareDocument(id) {
+
+    const email = prompt("Enter the registered user's email:");
+
+    if (!email) return;
+
+    const permission = prompt("Enter permission: read or edit", "read");
+
+    if (!["read", "edit"].includes((permission || "").toLowerCase())) {
+
+        alert("Permission must be read or edit.");
+
+        return;
+
+    }
+
+    try {
+
+        const data = await api("/documents/" + id + "/permissions", {
+
+            method: "POST",
+
+            body: JSON.stringify({
+
+                email,
+
+                permission: permission.toLowerCase()
+
+            })
+
+        });
+
+        showMessage(data.message);
+
+    } catch (e) {
+
+        showMessage(e.message, "error");
+
+    }
+
+}
+
+
+// CHECK LOGIN SESSION WHEN PAGE LOADS
 
 checkSession();
+
 </script>
+
 </body>
 </html>
+```
